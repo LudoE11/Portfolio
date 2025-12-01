@@ -1598,7 +1598,7 @@ if (contactForm) {
         const message = document.getElementById('message').value.trim();
         const privacy = document.getElementById('privacy').checked;
         
-        // Validation basique
+        // Validation
         if (!name || !email || !subject || !message) {
             showFormMessage('Veuillez remplir tous les champs obligatoires (*)', 'error');
             return;
@@ -1609,33 +1609,42 @@ if (contactForm) {
             return;
         }
         
-        // Préparation du contenu de l'email
-        const emailBody = `
-Nom: ${name}
-Email: ${email}
-Téléphone: ${phone || 'Non fourni'}
-Sujet: ${subject}
-
-Message:
-${message}
-
----
-Envoyé depuis le portfolio le ${new Date().toLocaleDateString('fr-FR')}
-        `.trim();
+        // Afficher le chargement
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+        submitBtn.disabled = true;
         
-        // Création du lien mailto
-        const mailtoLink = `mailto:ludovic.ertzer@orange.fr?subject=Portfolio: ${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        // Préparation des données pour PHP
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('subject', subject);
+        formData.append('message', message);
         
-        // Ouverture du client mail
-        window.location.href = mailtoLink;
-        
-        // Feedback à l'utilisateur
-        showFormMessage('Ouverture de votre client mail... Remplissez simplement le formulaire pré-rempli et envoyez !', 'success');
-        
-        // Réinitialisation optionnelle du formulaire
-        setTimeout(() => {
-            contactForm.reset();
-        }, 3000);
+        // Envoi à PHP
+        fetch('send_email.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showFormMessage(data.message, 'success');
+                contactForm.reset();
+            } else {
+                showFormMessage(data.message, 'error');
+            }
+        })
+        .catch(error => {
+            showFormMessage('Erreur de connexion. Veuillez réessayer.', 'error');
+            console.error('Error:', error);
+        })
+        .finally(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
     });
 }
 
