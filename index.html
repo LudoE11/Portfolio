@@ -1401,42 +1401,22 @@
 
 
 
-        const cvLink = document.querySelector('.cv-download');
+const cvLink = document.querySelector('.cv-download');
 
 if (cvLink) {
     cvLink.addEventListener('click', function(e) {
         e.preventDefault();
-        e.stopPropagation();
         
-        const filename = 'CV_Ludovic_Ertzer.pdf';
         const url = this.getAttribute('href');
+        const filename = 'CV_ERTZER_Ludovic.pdf';
         
-        const downloadLink = document.createElement('a');
+        const newWindow = window.open(url, '_blank');
         
-        const absoluteUrl = new URL(url, window.location.origin).href;
-        
-        downloadLink.href = absoluteUrl;
-        downloadLink.download = filename;
-        
-        downloadLink.style.display = 'none';
-        downloadLink.target = '_blank';
-        
-        document.body.appendChild(downloadLink);
-        
-        downloadLink.click();
-        
-        setTimeout(() => {
-            document.body.removeChild(downloadLink);
-            
-            setTimeout(() => {
-                const downloadStarted = performance.now();
-                setTimeout(() => {
-                    if (performance.now() - downloadStarted < 500) {
-                        window.open(absoluteUrl, '_blank');
-                    }
-                }, 500);
-            }, 300);
-        }, 100);
+        if (newWindow) {
+            newWindow.focus();
+        } else {
+            window.location.href = url;
+        }
     });
 }
     });
