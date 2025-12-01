@@ -1190,6 +1190,7 @@
 
 </section>
 
+<!-- Remplace la section contact existante par ce code -->
 <section id="contact">
     <h2>Contact</h2>
     
@@ -1222,6 +1223,21 @@
             
             <div class="contact-item">
                 <div class="contact-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <div>
+                    <strong>GitHub</strong>
+                    <div>
+                        <a href="https://github.com/votre-utilisateur-github" 
+                           style="color: var(--blue); text-decoration: none;">
+                            github.com/votre-utilisateur-github
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
                     <i class="fas fa-download"></i>
                 </div>
                 <div>
@@ -1236,7 +1252,110 @@
             Télécharger mon CV
         </a>
         
-        <p style="text-align: center; color: var(--grey); font-size: clamp(14px, 1.8vw, 15px); margin-top: 15px;">
+        <!-- Formulaire de contact -->
+        <div class="contact-form-container" style="width: 100%; margin-top: 30px;">
+            <h3 style="text-align: center; color: var(--blue-light); margin-bottom: 25px; font-size: 1.5rem;">
+                <i class="fas fa-paper-plane"></i> Envoyer un message
+            </h3>
+            
+            <form id="contactForm" style="display: flex; flex-direction: column; gap: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="name" style="margin-bottom: 8px; font-weight: 600; color: var(--text);">
+                            Nom complet *
+                        </label>
+                        <input type="text" id="name" name="name" required 
+                               style="padding: 14px 16px; border-radius: var(--border-radius-sm); 
+                                      border: 1px solid #2a313a; background: rgba(22, 27, 34, 0.8); 
+                                      color: var(--text); font-size: 16px; transition: var(--transition);"
+                               placeholder="Votre nom">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="email" style="margin-bottom: 8px; font-weight: 600; color: var(--text);">
+                            Email *
+                        </label>
+                        <input type="email" id="email" name="email" required 
+                               style="padding: 14px 16px; border-radius: var(--border-radius-sm); 
+                                      border: 1px solid #2a313a; background: rgba(22, 27, 34, 0.8); 
+                                      color: var(--text); font-size: 16px; transition: var(--transition);"
+                               placeholder="votre@email.com">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="phone" style="margin-bottom: 8px; font-weight: 600; color: var(--text);">
+                            Téléphone (optionnel)
+                        </label>
+                        <input type="tel" id="phone" name="phone"
+                               style="padding: 14px 16px; border-radius: var(--border-radius-sm); 
+                                      border: 1px solid #2a313a; background: rgba(22, 27, 34, 0.8); 
+                                      color: var(--text); font-size: 16px; transition: var(--transition);"
+                               placeholder="+33 1 23 45 67 89">
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="subject" style="margin-bottom: 8px; font-weight: 600; color: var(--text);">
+                            Sujet *
+                        </label>
+                        <input type="text" id="subject" name="subject" required 
+                               style="padding: 14px 16px; border-radius: var(--border-radius-sm); 
+                                      border: 1px solid #2a313a; background: rgba(22, 27, 34, 0.8); 
+                                      color: var(--text); font-size: 16px; transition: var(--transition);"
+                               placeholder="Objet de votre message">
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-direction: column;">
+                    <label for="message" style="margin-bottom: 8px; font-weight: 600; color: var(--text);">
+                        Message *
+                    </label>
+                    <textarea id="message" name="message" required rows="6"
+                              style="padding: 14px 16px; border-radius: var(--border-radius-sm); 
+                                     border: 1px solid #2a313a; background: rgba(22, 27, 34, 0.8); 
+                                     color: var(--text); font-size: 16px; resize: vertical; 
+                                     transition: var(--transition); font-family: 'Raleway', sans-serif;"
+                              placeholder="Votre message..."></textarea>
+                </div>
+                
+                <div style="background: rgba(52, 152, 219, 0.1); padding: 20px; border-radius: var(--border-radius-sm); border: 1px solid rgba(52, 152, 219, 0.3);">
+                    <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px;">
+                        <input type="checkbox" id="privacy" name="privacy" required 
+                               style="margin-top: 3px; accent-color: var(--blue);">
+                        <label for="privacy" style="color: var(--text); font-size: 14px; line-height: 1.5;">
+                            J'accepte que mes données personnelles (nom, email, téléphone) soient utilisées 
+                            uniquement pour répondre à ma demande de contact. Ces données ne seront ni vendues 
+                            ni partagées avec des tiers et seront conservées pendant 12 mois maximum.
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <input type="checkbox" id="newsletter" name="newsletter"
+                               style="margin-top: 3px; accent-color: var(--blue);">
+                        <label for="newsletter" style="color: var(--text); font-size: 14px; line-height: 1.5;">
+                            J'accepte de recevoir occasionnellement des informations sur les nouveaux projets 
+                            et actualités (vous pourrez vous désinscrire à tout moment).
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        style="background: var(--gradient-blue); color: white; border: none; 
+                               padding: 16px 30px; border-radius: 12px; font-weight: 700; 
+                               font-size: 17px; cursor: pointer; transition: var(--transition);
+                               display: flex; align-items: center; justify-content: center; gap: 12px;
+                               margin-top: 10px;">
+                    <i class="fas fa-paper-plane"></i>
+                    Envoyer le message
+                </button>
+                
+                <div id="formMessage" style="text-align: center; padding: 12px; border-radius: var(--border-radius-sm); 
+                                            margin-top: 10px; display: none;"></div>
+            </form>
+        </div>
+        
+        <p style="text-align: center; color: var(--grey); font-size: clamp(14px, 1.8vw, 15px); margin-top: 30px;">
             <i class="fas fa-info-circle"></i> N'hésitez pas à me contacter pour toute opportunité !
         </p>
     </div>
@@ -1426,6 +1545,109 @@ if (cvLink) {
         }
     });
 }
+
+// Formulaire de contact simple
+const contactForm = document.getElementById('contactForm');
+const formMessage = document.getElementById('formMessage');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupération des données
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const subject = document.getElementById('subject').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const privacy = document.getElementById('privacy').checked;
+        
+        // Validation basique
+        if (!name || !email || !subject || !message) {
+            showFormMessage('Veuillez remplir tous les champs obligatoires (*)', 'error');
+            return;
+        }
+        
+        if (!privacy) {
+            showFormMessage('Vous devez accepter la politique de confidentialité', 'error');
+            return;
+        }
+        
+        // Préparation du contenu de l'email
+        const emailBody = `
+Nom: ${name}
+Email: ${email}
+Téléphone: ${phone || 'Non fourni'}
+Sujet: ${subject}
+
+Message:
+${message}
+
+---
+Envoyé depuis le portfolio le ${new Date().toLocaleDateString('fr-FR')}
+        `.trim();
+        
+        // Création du lien mailto
+        const mailtoLink = `mailto:ludovic.ertzer@orange.fr?subject=Portfolio: ${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        
+        // Ouverture du client mail
+        window.location.href = mailtoLink;
+        
+        // Feedback à l'utilisateur
+        showFormMessage('Ouverture de votre client mail... Remplissez simplement le formulaire pré-rempli et envoyez !', 'success');
+        
+        // Réinitialisation optionnelle du formulaire
+        setTimeout(() => {
+            contactForm.reset();
+        }, 3000);
+    });
+}
+
+function showFormMessage(text, type) {
+    if (!formMessage) return;
+    
+    formMessage.textContent = text;
+    formMessage.style.display = 'block';
+    formMessage.style.padding = '15px';
+    formMessage.style.marginTop = '15px';
+    formMessage.style.borderRadius = 'var(--border-radius-sm)';
+    formMessage.style.fontSize = '14px';
+    
+    if (type === 'success') {
+        formMessage.style.backgroundColor = 'rgba(46, 204, 113, 0.15)';
+        formMessage.style.color = '#2ecc71';
+        formMessage.style.border = '1px solid rgba(46, 204, 113, 0.3)';
+    } else {
+        formMessage.style.backgroundColor = 'rgba(231, 76, 60, 0.15)';
+        formMessage.style.color = '#e74c3c';
+        formMessage.style.border = '1px solid rgba(231, 76, 60, 0.3)';
+    }
+    
+    // Masquer après 8 secondes
+    setTimeout(() => {
+        formMessage.style.display = 'none';
+    }, 8000);
+}
+
+// Ajout de styles pour les champs
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('#contactForm input, #contactForm textarea');
+    
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.borderColor = 'var(--blue)';
+            this.style.boxShadow = '0 0 0 2px rgba(52, 152, 219, 0.2)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.style.boxShadow = 'none';
+            if (!this.value) {
+                this.style.borderColor = '#2a313a';
+            }
+        });
+    });
+});
+
     });
 </script>
 
