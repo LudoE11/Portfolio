@@ -1319,81 +1319,33 @@
         </a>
         
         <!-- Formulaire de contact -->
-        <!-- Formulaire de contact -->
 <div class="contact-form-container">
     <h3 style="text-align: center; color: var(--blue-light); margin-bottom: 25px; font-size: 1.5rem;">
         <i class="fas fa-paper-plane"></i> Envoyer un message
     </h3>
     
-    <form id="contactForm">
-        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div>
-                <label for="name">
-                    Nom complet *
-                </label>
-                <input type="text" id="name" name="name" required class="form-input"
-                       placeholder="Votre nom">
-            </div>
-            
-            <div>
-                <label for="email">
-                    Email *
-                </label>
-                <input type="email" id="email" name="email" required class="form-input"
-                       placeholder="votre@email.com">
-            </div>
-        </div>
-        
-        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <div>
-                <label for="phone">
-                    Téléphone (optionnel)
-                </label>
-                <input type="tel" id="phone" name="phone" class="form-input"
-                       placeholder="+33 1 23 45 67 89">
-            </div>
-            
-            <div>
-                <label for="subject">
-                    Sujet *
-                </label>
-                <input type="text" id="subject" name="subject" required class="form-input"
-                       placeholder="Objet de votre message">
-            </div>
-        </div>
-        
-        <div>
-            <label for="message">
-                Message *
-            </label>
-            <textarea id="message" name="message" required rows="6" class="form-input"
-                      placeholder="Votre message..."></textarea>
-        </div>
-        
-        <div style="background: rgba(52, 152, 219, 0.1); padding: 20px; border-radius: var(--border-radius-sm); border: 1px solid rgba(52, 152, 219, 0.3); position: relative; z-index: 1;">
-            <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px;">
-                <input type="checkbox" id="privacy" name="privacy" required 
-                       style="margin-top: 3px; accent-color: var(--blue);">
-                <label for="privacy" style="color: var(--text); font-size: 14px; line-height: 1.5;">
-                    J'accepte que mes données personnelles soient utilisées pour répondre à ma demande de contact. Ces données ne seront ni vendues 
-                    ni partagées avec des tiers.
-                </label>
-            </div>
-        </div>
-        
-        <button type="submit" 
-                style="background: var(--gradient-blue); color: white; border: none; 
-                       padding: 16px 30px; border-radius: 12px; font-weight: 700; 
-                       font-size: 17px; cursor: pointer; transition: var(--transition);
-                       display: flex; align-items: center; justify-content: center; gap: 12px;
-                       margin-top: 10px; position: relative; z-index: 1;">
-            <i class="fas fa-paper-plane"></i>
-            Envoyer le message
-        </button>
-        
-        <div id="formMessage" style="text-align: center; padding: 12px; border-radius: var(--border-radius-sm); 
-                                    margin-top: 10px; display: none; position: relative; z-index: 1;"></div>
-    </form>
+    <form id="contactForm" action="https://formspree.io/f/xkgdbrwk" method="POST">
+    <!-- Tes champs actuels -->
+    <input type="hidden" name="_subject" value="Nouveau message - Portfolio Ludovic Ertzer">
+    <input type="hidden" name="_replyto" value="{{email}}"> <!-- Pré-remplit l'email de réponse -->
+    
+    <div>
+        <label for="name">Nom complet *</label>
+        <input type="text" id="name" name="name" required class="form-input">
+    </div>
+    
+    <div>
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required class="form-input">
+    </div>
+    
+    <!-- ... autres champs ... -->
+    
+    <button type="submit">
+        <i class="fas fa-paper-plane"></i>
+        Envoyer le message
+    </button>
+</form>
 </div>
 </section>
 
