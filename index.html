@@ -1319,33 +1319,106 @@
         </a>
         
         <!-- Formulaire de contact -->
+<!-- Formulaire de contact avec Formspree -->
 <div class="contact-form-container">
     <h3 style="text-align: center; color: var(--blue-light); margin-bottom: 25px; font-size: 1.5rem;">
         <i class="fas fa-paper-plane"></i> Envoyer un message
     </h3>
     
     <form id="contactForm" action="https://formspree.io/f/xkgdbrwk" method="POST">
-    <!-- Tes champs actuels -->
-    <input type="hidden" name="_subject" value="Nouveau message - Portfolio Ludovic Ertzer">
-    <input type="hidden" name="_replyto" value="{{email}}"> <!-- Pré-remplit l'email de réponse -->
-    
-    <div>
-        <label for="name">Nom complet *</label>
-        <input type="text" id="name" name="name" required class="form-input">
-    </div>
-    
-    <div>
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required class="form-input">
-    </div>
-    
-    <!-- ... autres champs ... -->
-    
-    <button type="submit">
-        <i class="fas fa-paper-plane"></i>
-        Envoyer le message
-    </button>
-</form>
+        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <label for="name">
+                    Nom complet *
+                </label>
+                <input type="text" id="name" name="name" required class="form-input"
+                       placeholder="Votre nom">
+            </div>
+            
+            <div>
+                <label for="email">
+                    Email *
+                </label>
+                <input type="email" id="email" name="email" required class="form-input"
+                       placeholder="votre@email.com">
+            </div>
+        </div>
+        
+        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <label for="phone">
+                    Téléphone (optionnel)
+                </label>
+                <input type="tel" id="phone" name="phone" class="form-input"
+                       placeholder="+33 1 23 45 67 89">
+            </div>
+            
+            <div>
+                <label for="subject">
+                    Sujet *
+                </label>
+                <input type="text" id="subject" name="subject" required class="form-input"
+                       placeholder="Objet de votre message">
+            </div>
+        </div>
+        
+        <div>
+            <label for="message">
+                Message *
+            </label>
+            <textarea id="message" name="message" required rows="6" class="form-input"
+                      placeholder="Votre message..."></textarea>
+        </div>
+        
+        <!-- Champs cachés pour Formspree -->
+        <input type="hidden" name="_subject" value="Nouveau message - Portfolio Ludovic Ertzer">
+        <input type="hidden" name="_replyto" value="{{email}}">
+        <input type="hidden" name="_language" value="fr">
+        <input type="text" name="_gotcha" style="display:none">
+        
+        <div style="background: rgba(52, 152, 219, 0.1); padding: 20px; border-radius: var(--border-radius-sm); border: 1px solid rgba(52, 152, 219, 0.3); position: relative; z-index: 1;">
+            <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 15px;">
+                <input type="checkbox" id="privacy" name="privacy" required 
+                       style="margin-top: 3px; accent-color: var(--blue);">
+                <label for="privacy" style="color: var(--text); font-size: 14px; line-height: 1.5; white-space: normal; word-wrap: break-word; margin: 0; padding: 0;">
+                    J'accepte que mes données personnelles soient utilisées pour répondre à ma demande de contact. Ces données ne seront ni vendues ni partagées avec des tiers.
+                </label>
+            </div>
+            
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                <input type="checkbox" id="newsletter" name="newsletter"
+                       style="margin-top: 3px; accent-color: var(--blue);">
+                <label for="newsletter" style="color: var(--text); font-size: 14px; line-height: 1.5; white-space: normal; word-wrap: break-word; margin: 0; padding: 0;">
+                    J'accepte de recevoir occasionnellement des informations sur les nouveaux projets et actualités.
+                </label>
+            </div>
+        </div>
+        
+        <button type="submit" 
+                style="background: var(--gradient-blue); color: white; border: none; 
+                       padding: 16px 30px; border-radius: 12px; font-weight: 700; 
+                       font-size: 17px; cursor: pointer; transition: var(--transition);
+                       display: flex; align-items: center; justify-content: center; gap: 12px;
+                       margin-top: 10px; position: relative; z-index: 1;">
+            <i class="fas fa-paper-plane"></i>
+            Envoyer le message
+        </button>
+        
+        <!-- Message de confirmation (caché par défaut) -->
+        <div id="formSuccess" style="text-align: center; padding: 20px; margin-top: 20px; 
+                                    background: rgba(46, 204, 113, 0.15); color: #2ecc71; 
+                                    border-radius: var(--border-radius-sm); border: 1px solid rgba(46, 204, 113, 0.3);
+                                    display: none;">
+            <i class="fas fa-check-circle"></i> Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.
+        </div>
+        
+        <div id="formError" style="text-align: center; padding: 20px; margin-top: 20px; 
+                                  background: rgba(231, 76, 60, 0.15); color: #e74c3c; 
+                                  border-radius: var(--border-radius-sm); border: 1px solid rgba(231, 76, 60, 0.3);
+                                  display: none;">
+            <i class="fas fa-exclamation-circle"></i> Une erreur est survenue. Veuillez réessayer.
+        </div>
+    </form>
 </div>
 </section>
 
@@ -1535,70 +1608,77 @@ if (cvLink) {
 }
 
 // Formulaire de contact simple
+// Gestion du formulaire Formspree
 const contactForm = document.getElementById('contactForm');
-const formMessage = document.getElementById('formMessage');
+const formSuccess = document.getElementById('formSuccess');
+const formError = document.getElementById('formError');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Récupération des données
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const subject = document.getElementById('subject').value.trim();
-        const message = document.getElementById('message').value.trim();
-        const privacy = document.getElementById('privacy').checked;
-        
         // Validation
-        if (!name || !email || !subject || !message) {
-            showFormMessage('Veuillez remplir tous les champs obligatoires (*)', 'error');
-            return;
-        }
-        
+        const privacy = document.getElementById('privacy').checked;
         if (!privacy) {
-            showFormMessage('Vous devez accepter la politique de confidentialité', 'error');
+            showMessage(formError, 'Vous devez accepter la politique de confidentialité');
             return;
         }
         
         // Afficher le chargement
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
         submitBtn.disabled = true;
         
-        // Préparation des données pour PHP
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('subject', subject);
-        formData.append('message', message);
+        // Cacher les messages précédents
+        formSuccess.style.display = 'none';
+        formError.style.display = 'none';
         
-        // Envoi à PHP
-        fetch('send_email.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showFormMessage(data.message, 'success');
-                contactForm.reset();
+        try {
+            // Envoyer le formulaire
+            const formData = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Succès
+                showMessage(formSuccess, 'Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
+                this.reset();
             } else {
-                showFormMessage(data.message, 'error');
+                // Erreur
+                throw new Error('Erreur lors de l\'envoi');
             }
-        })
-        .catch(error => {
-            showFormMessage('Erreur de connexion. Veuillez réessayer.', 'error');
-            console.error('Error:', error);
-        })
-        .finally(() => {
+        } catch (error) {
+            // Erreur réseau ou autre
+            showMessage(formError, 'Une erreur est survenue. Vous pouvez m\'écrire directement à ludovic.ertzer@orange.fr');
+        } finally {
+            // Réinitialiser le bouton
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
-        });
+        }
     });
 }
+
+function showMessage(element, text) {
+    if (element && text) {
+        element.textContent = text;
+        element.style.display = 'block';
+        
+        // Défilement doux vers le message
+        element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        // Masquer après 8 secondes
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 8000);
+    }
+}
+
 
 function showFormMessage(text, type) {
     if (!formMessage) return;
